@@ -5,24 +5,17 @@
                  [org.clojure/clojurescript "1.7.48"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [khroma "0.0.2"]
-                 [prismatic/dommy "1.1.0"]
-                 [weasel "0.7.0"]]
+                 [prismatic/dommy "1.1.0"]]
   :source-paths ["src"]
-  :profiles {:dev {:plugins [[com.cemerick/austin "0.1.6"]
-                             [lein-cljsbuild "1.0.6"]
-                             [lein-chromebuild "0.2.1"]]
-                   :dependencies [[com.cemerick/piggieback "0.2.1"]
-                                  [org.clojure/tools.nrepl "0.2.10"]]
-                   :nrepl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
-                   :injections [(require '[cemerick.piggieback :as pb]
-                                         '[weasel.repl.websocket :as ws])
-                                (defn browser-repl []
-                                  (pb/cljs-repl
-                                   (ws/repl-env :ip "0.0.0.0" :port 11000)))] ;; Choose your port
+  :profiles {:dev {:plugins [[lein-cljsbuild "1.0.6"]
+                             [lein-chromebuild "0.2.1"]
+                             [lein-figwheel "0.3.7"]]
                    :cljsbuild {:builds {:main
-                                        {:source-paths ["src"]
-                                         :compiler {:output-to "target/unpacked/chrome_extension_test.js"
+                                        {:source-paths ["src" "src/chrome-extension-test"]
+                                         :compiler {:main "chrome-extension-test.content"
+                                                    :output-to "target/unpacked/chrome_extension_test.js"
                                                     :output-dir "target/js"
-                                                    :optimizations :whitespace
-                                                    :pretty-print true}}}
-                               :repl-listen-port 9013}}})
+                                                    :asset-path "chrome-extension://mnibaljpgmlacbpggfffhnpbkbgjhkol"
+                                                    :optimizations :none
+                                                    :figwheel true
+                                                    :pretty-print true}}}}}})

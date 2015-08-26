@@ -1,9 +1,8 @@
-(ns chrome-extension-test.content
+(ns chrome-extension-test.content2
   (:require [khroma.runtime :as runtime]
             [khroma.log :as console]
             [cljs.core.async :refer [>! <!]]
             [cljs.core.async :as async]
-            [weasel.repl]
             [dommy.core :as dommy]
             [dommy.core :refer-macros [sel sel1]]
             [cljs.core.async :refer [put! chan <! pipe]])
@@ -11,7 +10,6 @@
 
 (defn init []
   (let [bg (runtime/connect)]
-    (weasel.repl/connect "ws://localhost:11000" :verbose true)
     (go (>! bg :lol-i-am-a-content-script)
         (console/log "Background said: " (<! bg))
 
@@ -32,7 +30,3 @@
 
 ; (def ch (observe-text :#ac_performer))
 ; (go (while true (.log js/console (<! ch))))
-
-(defn ^:export
-  repl-connect []
-  (weasel.repl/connect "ws://localhost:11000" :verbose true))
