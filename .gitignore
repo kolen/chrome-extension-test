@@ -2,3 +2,5 @@
 /target
 /repl
 /.lein-repl-history
+
+*.log
